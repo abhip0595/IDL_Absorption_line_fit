@@ -31,7 +31,23 @@ end
 function fit_abs_lines,w,f,e,line=line,yfit=yfit,parname=parname,$
     dof=dof,chisq=chisq,quiet=quiet,c_order=c_order
 
-	nl = n_elements(line.x0)    ; Number of line centers
+		if n_elements(line) eq 0 then begin
+			read,PROMPT='Number of line centers:',nl
+			if nl gt 0 then begin
+				line = replicate({x0:0.,gamma:0.,nx:0.,fosc:0.,b:0.,$
+				typ:+1},n_elements(lines))
+				for i=0,nl-1 do begin
+					read,PROMPT='LINE_CENTER:',line[i].x0
+					read,PROMPT='DAMPING_CONSTANT:',line[i].gamma
+					read,PROMPT='COLUMN_DENSITY:',line[i].nx
+					read,PROMPT='OSCILLATOR_STRENGTH:',line[i].fosx
+					read,PROMPT='BROADENING_PARAMETER:',line[i].b
+					read,PROMPT='LINE_TYPE:',line[i].typ
+				endfor
+			endif
+		endif
+
+	nl = n_elements(line.x0)    										; Number of line centers
 	npar = (c_order+1) + (nl*6) + 1
 	par = replicate({value:0.d,fixed:0,limited:[0,0],$
    	limits:[0.d,0.d],parname:''},npar)
