@@ -29,23 +29,27 @@ function voigt_fit,x,p,tau=tau
 end
 
 function fit_abs_lines,w,f,e,line=line,yfit=yfit,parname=parname,$
-    dof=dof,chisq=chisq,quiet=quiet,c_order=c_order
+    dof=dof,chisq=chisq,quiet=quiet,c_order=c_order,find_line=find_line
 
-		if n_elements(line) eq 0 then begin
-			read,PROMPT='Number of line centers:',nl
-			if nl gt 0 then begin
-				line = replicate({x0:0.,gamma:0.,nx:0.,fosc:0.,b:0.,$
-				typ:+1},n_elements(lines))
-				for i=0,nl-1 do begin
-					read,PROMPT='LINE_CENTER:',line[i].x0
-					read,PROMPT='DAMPING_CONSTANT:',line[i].gamma
-					read,PROMPT='COLUMN_DENSITY:',line[i].nx
-					read,PROMPT='OSCILLATOR_STRENGTH:',line[i].fosx
-					read,PROMPT='BROADENING_PARAMETER:',line[i].b
-					read,PROMPT='LINE_TYPE:',line[i].typ
-				endfor
-			endif
+	if n_elements(line) eq 0 then begin
+		read,PROMPT='Number of line centers:',nl
+		if nl gt 0 then begin
+			line = replicate({x0:0.,gamma:0.,nx:0.,fosc:0.,b:0.,$
+			typ:+1},n_elements(lines))
+			for i=0,nl-1 do begin
+				read,PROMPT='LINE_CENTER:',line[i].x0
+				read,PROMPT='DAMPING_CONSTANT:',line[i].gamma
+				read,PROMPT='COLUMN_DENSITY:',line[i].nx
+				read,PROMPT='OSCILLATOR_STRENGTH:',line[i].fosx
+				read,PROMPT='BROADENING_PARAMETER:',line[i].b
+				read,PROMPT='LINE_TYPE:',line[i].typ
+			endfor
 		endif
+	endif
+
+	if n_elements(quiet) eq 0 then quiet = 1
+	if n_elements(c_order) eq 0 then c_order = 3
+	if n_elements(find_line) eq 0 then find_line = (max(w,/nan)-min(w,/nan))/2.
 
 	nl = n_elements(line.x0)    										; Number of line centers
 	npar = (c_order+1) + (nl*6) + 1
@@ -68,7 +72,7 @@ function fit_abs_lines,w,f,e,line=line,yfit=yfit,parname=parname,$
 		par[x + 0].value = line[i].x0
 		par[x + 0].parname = 'LINE_CENTER'
 		par[x + 0].limited[0:1] = [1,1]
-		par[x + 0].limits[0:1] = [line[i].x0-10.,line[i].x0+10.]
+		par[x + 0].limits[0:1] = [line[i].x0-find_line,line[i].x0+find_line]
 		par[x + 1].value = line[i].fosc
 		par[x + 1].parname = 'FOSC'
 		par[x + 1].fixed = 1
