@@ -80,7 +80,7 @@ function fit_abs_lines,w,f,e,line=line,yfit=yfit,parname=parname,$
 		par[x + 2].parname = 'GAMMA'
 		par[x + 2].fixed = 1
 		par[x + 3].value = line[i].nx
-		par[x + 3].parname = 'NH'
+		par[x + 3].parname = 'NX'
 		par[x + 3].limited[0:1] = 1
 		par[x + 3].limits[0:1] = [0.,50.]
 		par[x + 4].value = line[i].b
