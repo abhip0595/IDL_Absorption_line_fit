@@ -3,13 +3,13 @@
 ;USER INPUT
 ;****************
   c_order = 3   ; Order of polynomial
-  xlim = [1150,1300]    ; Wavelength range
-  lines = [1215.7]    ; line centers
-  gamma = [4.6986e8]    ; gamma
-  fosc = [4.1641e-1]    ; fosc
-  nx = [20.]    ; column density
-  b = [10.]   ; broading parameter
-  typ	=	[-1]    ; +1: emission -1: absorption
+  xlim = []    ; Wavelength range
+  lines = []    ; line centers
+  gamma = []    ; gamma
+  fosc = []    ; fosc
+  nx = []    ; column density
+  b = []   ; broading parameter
+  typ	=	[]    ; +1: emission -1: absorption
   rb = 1    ; 1: to rebin data to increase SNR
   quiet = 1   ; Set 1 to supress MPFIT
   pr = 1    ; Set 1 to print result
@@ -17,7 +17,7 @@
   ;****************
   ;USER INPUT
   ;****************
-  
+
   line = replicate({x0:0.,gamma:0.,nx:0.,fosc:0.,$
       b:0.,typ:+1},n_elements(lines))
       for i = 0,n_elements(lines)-1 do begin
