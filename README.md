@@ -22,7 +22,7 @@ INPUTS:
 		.nx 	- [Array] - column density
 		.fosc 	- [Array] - oscillator strength
 		.b 	- [Array] - doppler broadening parameter
-		.typ - [Array] - -1 for absorption / +1 for emission
+		.typ 	- [Array] - -1 for absorption / +1 for emission
 	OPTIONAL:
 	quiet 	- 1 to suppress MPFIT print statements DEFAULT = 1
 	c_order - Order of CHEBYSHEV polynomial for continuum DEFAULT=3
