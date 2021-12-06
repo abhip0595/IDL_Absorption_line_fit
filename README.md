@@ -8,7 +8,7 @@ FUNCTIONS CALLED:
 	1.	MPFITFUN
 	2.	CHEBEVAL
 
-CALLING SEQUENCE
+CALLING SEQUENCE:
 result = fit_abs_lines(w,f,e,line=line[,yfit=yfit,parname=parname,dof=dof,chisq=chisq,quiet=quiet,c_order=c_order])
 
 
@@ -34,3 +34,12 @@ OUTPUT:
 	parname	- [Array] Voigt Profile parameter names passed to MPFIT
 	dof 	- Degrees of Freedom returned by MPFIT
 	chisq 	- CHI-SQUARE calculated
+
+FIT_ABS_BATCH:
+IDL code to run fit_abs_lines for batch of files.
+
+CALLING SEQUENCE:
+.run fit_abs_batch
+
+DESCRIPTION: User can place their SED data (.fits format) in a 'data/SED' directory. Output is written to a CSV file saved 'abs_fit.csv' in 'data/' directory.
+Plots are saved in 'plots/abs_line/' in PNG format. FITS file structure to be .wave for wavevector, .flux for flux and .sigma for 1 sigma error in flux. Users may modify these for their needs.
